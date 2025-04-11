@@ -1,0 +1,75 @@
+2. `index.html` dosyasını modern bir web tarayıcısında açın (Chrome, Firefox, Edge önerilir)
+3. Ana sayfadan kullanmak istediğiniz uygulamayı seçin
+
+### Web Sunucusuna Yükleme
+
+1. Tüm dosyaları web sunucunuza yükleyin
+2. Tarayıcınızdan yüklediğiniz konuma erişin
+3. Ana sayfadan istediğiniz uygulamayı başlatın
+
+## 📋 Uygulama Kılavuzları
+
+### Depth Map to STL Converter
+
+1. **Depth Map Yükleme**
+- "Load Depth Map" butonuna tıklayın veya dosyayı sürükleyip bırakın
+- Yüklenen görüntü otomatik olarak en-boy oranı korunarak görselleştirilir
+
+2. **Texture Ekleme (İsteğe Bağlı)**
+- "Load Texture" butonuna tıklayın veya dosyayı sürükleyip bırakın
+- Parlaklık, kontrast ve materyal ayarlarını özelleştirin
+
+3. **3D Model Ayarları**
+- Derinlik, genişlik, yükseklik ve çözünürlük parametrelerini ayarlayın
+- Aydınlatma ve materyal türünü istediğiniz gibi değiştirin
+
+4. **Dışa Aktarma**
+- "Export STL" ile 3D baskı için STL modelini dışa aktarın
+- "Export Print Files" ile baskı hazırlığı için dosyaları ayırın
+
+### IDEA Rainbo Pro Depth Map Generator
+
+1. **API Ayarları**
+- IDEA Rainbo Pro API anahtarınızı girin ve "Bağlan" butonuna tıklayın
+- Mevcut kredinizi görüntüleyin (her depth map oluşturma 10 kredi gerektirir)
+
+2. **Görüntü Yükleme**
+- Görüntü yükleyin ve görüntü tipini seçin (normal, portre, eskiz)
+- Yeterli krediniz varsa "Depth Map Oluştur" butonuna tıklayın
+
+3. **Sonuçları İndirme**
+- İşlem tamamlandığında "Depth Map İndir" ve "Texture İndir" butonlarını kullanın
+- Dosyalar otomatik olarak tarih-zaman etiketiyle kaydedilir
+
+## 🔑 API Kullanımı
+
+IDEA Rainbo Pro Depth Map Generator, SculptoK API'sini kullanır. Bu servisi kullanmak için:
+
+1. [SculptoK](https://sculptok.com/) üzerinden bir API anahtarı edinin
+2. API anahtarınızı uygulamaya girin
+3. Her depth map oluşturma 10 kredi gerektirir
+
+## 💡 İpuçları ve En İyi Uygulamalar
+
+- **Depth Map'ler İçin Öneriler**:
+- Yüksek kontrastlı görüntüler en iyi sonucu verir
+- Arka plan ve ana konu arasında belirgin ayrım olmalı
+- Karmaşık sahneler yerine daha basit kompozisyonlar tercih edin
+
+- **3D Modelleme İçin**:
+- Yüksek kaliteli modeller için daha fazla segment kullanın
+- Baskı öncesi modeli tüm yönlerden inceleyin
+- STL dosyasını slicer programınızda açmadan önce optimize edin
+
+## 📄 Lisans
+
+Bu proje [MIT Lisansı](https://opensource.org/licenses/MIT) altında lisanslanmıştır.
+
+## 👥 İletişim
+
+- Geliştirici: [tyndreus1](https://github.com/tyndreus1)
+- Sorunlar ve öneriler için [issue tracker](https://github.com/tyndreus1/DEPTH2STL/issues) kullanabilirsiniz.
+
+---
+
+© 2025 Alpress IDEA Rainbo pro 3d - All rights reserved.
