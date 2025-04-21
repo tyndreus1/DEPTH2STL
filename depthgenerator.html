@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>IDEA Rainbo Pro - 3D GENERATOR</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid #333;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-image {
+            height: 50px;
+            max-width: 150px;
+            object-fit: contain;
+        }
+        
+        .home-button {
+            margin-left: 15px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .home-button:hover {
+            background-color: #0b7dda;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .title {
+            margin-left: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        .spacer {
+            flex-grow: 1;
+        }
+        
+        .language-selector {
+            display: flex;
+            margin-right: 15px;
+            gap: 5px;
+        }
+        
+        .lang-btn {
+            padding: 5px 10px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .lang-btn:hover {
+            background-color: #444;
+        }
+        
+        .lang-btn.active {
+            background-color: #2196F3;
+            color: white;
+            border-color: #0b7dda;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .date-time {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 4px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        /* Control Panel */
+        .control-panel {
+            width: 300px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+        
+        .panel-section {
+            margin-bottom: 25px;
+        }
+        
+        .panel-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .credits-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(33, 150, 243, 0.1);
+            border-radius: 5px;
+        }
+        
+        .credits-label {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .credits-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #222;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #444;
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: #0b7dda;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+        
+        .btn-success:hover {
+            background-color: #45a049;
+        }
+        
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+        
+        .upload-area {
+            border: 2px dashed #333;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #2196F3;
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .upload-text {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .history-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            font-size: 13px;
+            color: #aaa;
+        }
+        
+        .history-date {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Preview Area */
+        .preview-area {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        .preview-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .preview-display {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 400px;
+        }
+        
+        .image-comparison {
+            display: flex;
+            height: auto; /* Changed from fixed height */
+            min-height: 300px;
+            gap: 20px;
+            flex: 1;
+        }
+        
+        .comparison-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #151515;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .comparison-label {
+            padding: 8px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .comparison-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            overflow: hidden; /* Prevent overflow */
+            position: relative; /* For proper image sizing */
+            min-height: 200px; /* Minimum height */
+        }
+        
+        .comparison-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            margin: auto; /* Center image */
+        }
+        
+        .process-status {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-idle {
+            background-color: #999;
+        }
+        
+        .status-processing {
+            background-color: #ff9800;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .status-complete {
+            background-color: #4CAF50;
+        }
+        
+        .status-error {
+            background-color: #f44336;
+        }
+        
+        /* Loading Animation */
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.6;
+            }
+        }
+        
+        .loading-spinner {
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #2196F3;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        #toast.success {
+            border-left: 4px solid #4CAF50;
+        }
+        
+        #toast.error {
+            border-left: 4px solid #f44336;
+        }
+        
+        #toast.info {
+            border-left: 4px solid #2196F3;
+        }
+        
+        /* Help Box */
+        .help-box {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: rgba(33, 150, 243, 0.1);
+            border-radius: 5px;
+            font-size: 13px;
+            color: #aaa;
+            border-left: 3px solid #2196F3;
+        }
+        
+        .help-box-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2196F3;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 15px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-top: 1px solid #333;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .control-panel, .preview-area {
+                width: 100%;
+                height: auto;
+            }
+            
+            .image-comparison {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .comparison-item {
+                min-height: 250px;
+            }
+            
+            .header {
+                flex-wrap: wrap;
+            }
+            
+            .title {
+                order: 3;
+                width: 100%;
+                margin: 10px 0 0 0;
+            }
+            
+            .language-selector {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="logo/logo.png" alt="IDEA Rainbo Pro" class="logo-image">
+            <button class="home-button" id="homeButton">Ana Sayfa</button>
+        </div>
+        <div class="title" id="appTitle">IDEA Rainbo Pro Depth Map Generator</div>
+        <div class="spacer"></div>
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="tr">Türkçe</button>
+            <button class="lang-btn" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="es">Español</button>
+        </div>
+        <div class="user-info">
+            <div class="user-name" id="username">tyndreus1</div>
+            <div class="date-time" id="datetime">2025-04-11 10:49:23</div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="panel-section">
+                <div class="panel-title" id="apiSettingsTitle">API Ayarları</div>
+                <div class="form-group">
+                    <label for="apiKey" id="apiKeyLabel">IDEA Rainbo Pro API Key</label>
+                    <input type="password" id="apiKey" placeholder="API anahtarınızı girin">
+                </div>
+                <button class="btn btn-primary" id="connectButton">Bağlan</button>
+            </div>
+            
+            <div class="panel-section">
+                <div class="panel-title" id="creditInfoTitle">Kredi Bilgisi</div>
+                <div class="credits-info">
+                    <span class="credits-label" id="creditsLabel">Mevcut Krediniz:</span>
+                    <span class="credits-value" id="creditAmount">-</span>
+                </div>
+                <button class="btn btn-secondary" id="refreshCreditsButton">Kredileri Yenile</button>
+            </div>
+            
+            <div class="panel-section">
+                <div class="panel-title" id="uploadImageTitle">Görüntü Yükle</div>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text" id="uploadText">Bir resim dosyası seçin veya sürükleyip bırakın</div>
+                </div>
+                <input type="file" id="fileInput" style="display: none" accept="image/*">
+                
+                <div class="form-group">
+                    <label for="imageType" id="imageTypeLabel">Görüntü Tipi</label>
+                    <select id="imageType">
+                        <option value="normal" id="normalOption">Normal</option>
+                        <option value="portrait" id="portraitOption">Portre</option>
+                        <option value="sketch" id="sketchOption">Eskiz</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-success" id="generateButton" disabled>Depth Map Oluştur (10 Kredi)</button>
+                
+                <!-- Help Box for Download Directory -->
+                <div class="help-box" id="saveHelp">
+                    <div class="help-box-title" id="saveHelpTitle">Dosya Kaydetme Bilgisi</div>
+                    <div id="saveHelpText">Oluşturulan dosyalar tarih-saat ile etiketlenecek ve indirilen dosyalar klasörünüze kaydedilecektir.</div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="panel-title" id="historyTitle">İşlem Geçmişi</div>
+                <div id="historyContainer"></div>
+            </div>
+        </div>
+        
+        <!-- Preview Area -->
+        <div class="preview-area">
+            <div class="preview-header">
+                <div class="preview-title" id="previewTitle">Önizleme</div>
+                <div class="preview-controls">
+                    <button class="btn btn-secondary" id="downloadSourceButton" disabled>Texture İndir</button>
+                    <button class="btn btn-primary" id="downloadDepthButton" disabled>3D Dosya İndir</button>
+                </div>
+            </div>
+            
+            <div class="preview-display">
+                <div class="image-comparison">
+                    <div class="comparison-item">
+                        <div class="comparison-label" id="sourceImageLabel">Kaynak Görüntü</div>
+                        <div class="comparison-image" id="sourceImageContainer">
+                            <span style="color: #666;" id="noSourceText">Görüntü yüklenmedi</span>
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-label" id="depthImageLabel">Depth Map</div>
+                        <div class="comparison-image" id="depthImageContainer">
+                            <span style="color: #666;" id="noDepthText">Henüz oluşturulmadı</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-status">
+                    <span class="status-indicator status-idle" id="statusIndicator"></span>
+                    <span id="statusText">Hazır</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+    
+    <!-- Footer -->
+    <div class="footer" id="footer">
+        Alpress IDEA Rainbo pro 3d - All rights reserved 2025.
+    </div>
+    
+    <script>
+        // Global variables
+        let apiKey = '';
+        let currentCredits = 0;
+        let isConnected = false;
+        let sourceImage = null;
+        let sourceImageUrl = '';
+        let depthMapUrl = '';
+        let promptId = '';
+        let processingInterval = null;
+        let historyPage = 1;
+        let historyLimit = 5;
+        let currentLanguage = 'tr';
+        
+        // Translations
+        const translations = {
+            tr: {
+                homeButton: "Ana Sayfa",
+                appTitle: "IDEA Rainbo Pro Depth Map Generator",
+                apiSettingsTitle: "API Ayarları",
+                apiKeyLabel: "IDEA Rainbo Pro API Key",
+                apiKeyPlaceholder: "API anahtarınızı girin",
+                connectButton: "Bağlan",
+                connectButtonConnected: "Bağlandı ✓",
+                creditInfoTitle: "Kredi Bilgisi",
+                creditsLabel: "Mevcut Krediniz:",
+                refreshCreditsButton: "Kredileri Yenile",
+                uploadImageTitle: "Görüntü Yükle",
+                uploadText: "Bir resim dosyası seçin veya sürükleyip bırakın",
+                imageTypeLabel: "Görüntü Tipi",
+                normalOption: "Normal",
+                portraitOption: "Portre",
+                sketchOption: "Eskiz",
+                generateButton: "Depth Map Oluştur (10 Kredi)",
+                historyTitle: "İşlem Geçmişi",
+                noHistory: "Henüz işlem geçmişi yok",
+                previewTitle: "Önizleme",
+                downloadSourceButton: "Texture İndir",
+                downloadDepthButton: "3D Dosya İndir",
+                sourceImageLabel: "Kaynak Görüntü",
+                depthImageLabel: "3D dosya",
+                noSourceText: "Görüntü yüklenmedi",
+                noDepthText: "Henüz oluşturulmadı",
+                statusReady: "Hazır",
+                statusUploading: "Görüntü yükleniyor...",
+                statusRequesting: "3D Dosya oluşturma isteği gönderiliyor...",
+                statusProcessing: "3D Dosya oluşturuluyor, lütfen bekleyin...",
+                statusQueued: "Sırada bekliyor: {position}. sırada",
+                statusComplete: "3D Dosya başarıyla oluşturuldu",
+                statusFailed: "3D Dosya oluşturma başarısız",
+                footer: "Alpress IDEA Rainbo pro 3d - All rights reserved 2025.",
+                saveHelpTitle: "Dosya Kaydetme Bilgisi",
+                saveHelpText: "Oluşturulan dosyalar tarih-saat ile etiketlenecek ve indirilen dosyalar klasörünüze kaydedilecektir.",
+                toastApiRequired: "API key is required",
+                toastConnected: "API bağlantısı başarılı",
+                toastConnectionFailed: "API bağlantısı başarısız: {message}",
+                toastCreditsError: "Kredi bilgisi alınamadı: {message}",
+                toastHistoryError: "İşlem geçmişi alınamadı: {message}",
+                toastImageUploaded: "Görüntü başarıyla yüklendi",
+                toastRequirementsError: "API bağlantısı ve görüntü gerekli",
+                toastNotEnoughCredits: "Yeterli krediniz yok (10 kredi gerekli)",
+                toastUploadError: "Görüntü yükleme hatası: {message}",
+                toastDrawError: "Oluşturma isteği hatası: {message}",
+                toastProcessError: "İşlem hatası: {message}",
+                toastStatusError: "Durum kontrol hatası: {message}",
+                toastDownloadError: "İndirme hatası: {message}",
+                toastDownloadSuccess: "Dosya başarıyla indirildi: {filename}"
+            },
+            en: {
+                homeButton: "Home",
+                appTitle: "IDEA Rainbo Pro 3D Model File Generator",
+                apiSettingsTitle: "API Settings",
+                apiKeyLabel: "IDEA Rainbo Pro API Key",
+                apiKeyPlaceholder: "Enter your API key",
+                connectButton: "Connect",
+                connectButtonConnected: "Connected ✓",
+                creditInfoTitle: "Credit Information",
+                creditsLabel: "Your Current Credits:",
+                refreshCreditsButton: "Refresh Credits",
+                uploadImageTitle: "Upload Image",
+                uploadText: "Select an image file or drag and drop",
+                imageTypeLabel: "Image Type",
+                normalOption: "Normal",
+                portraitOption: "Portrait",
+                sketchOption: "Sketch",
+                generateButton: "Generate 3D File (10 Credits)",
+                historyTitle: "Process History",
+                noHistory: "No process history yet",
+                previewTitle: "Preview",
+                downloadSourceButton: "Download Texture",
+                downloadDepthButton: "Download 3D File",
+                sourceImageLabel: "Source Image",
+                depthImageLabel: "3D File",
+                noSourceText: "No image loaded",
+                noDepthText: "Not yet generated",
+                statusReady: "Ready",
+                statusUploading: "Uploading image...",
+                statusRequesting: "Sending 3D File generation request...",
+                statusProcessing: "Generating 3D File, please wait...",
+                statusQueued: "Waiting in queue: Position {position}",
+                statusComplete: "3D File successfully generated",
+                statusFailed: "3D File generation failed",
+                footer: "Alpress IDEA Rainbo pro 3d - All rights reserved 2025.",
+                saveHelpTitle: "File Saving Information",
+                saveHelpText: "Generated files will be tagged with date-time and saved to your downloads folder.",
+                toastApiRequired: "API key is required",
+                toastConnected: "API connection successful",
+                toastConnectionFailed: "API connection failed: {message}",
+                toastCreditsError: "Could not get credit information: {message}",
+                toastHistoryError: "Could not get process history: {message}",
+                toastImageUploaded: "Image successfully uploaded",
+                toastRequirementsError: "API connection and image required",
+                toastNotEnoughCredits: "Not enough credits (10 credits required)",
+                toastUploadError: "Image upload error: {message}",
+                toastDrawError: "Generation request error: {message}",
+                toastProcessError: "Processing error: {message}",
+                toastStatusError: "Status check error: {message}",
+                toastDownloadError: "Download error: {message}",
+                toastDownloadSuccess: "File successfully downloaded: {filename}"
+            },
+            es: {
+                homeButton: "Inicio",
+                appTitle: "Generador de Mapas de Profundidad IDEA Rainbo Pro",
+                apiSettingsTitle: "Configuración de API",
+                apiKeyLabel: "Clave API de IDEA Rainbo Pro",
+                apiKeyPlaceholder: "Ingrese su clave API",
+                connectButton: "Conectar",
+                connectButtonConnected: "Conectado ✓",
+                creditInfoTitle: "Información de Crédito",
+                creditsLabel: "Sus Créditos Actuales:",
+                refreshCreditsButton: "Actualizar Créditos",
+                uploadImageTitle: "Cargar Imagen",
+                uploadText: "Seleccione un archivo de imagen o arrastre y suelte",
+                imageTypeLabel: "Tipo de Imagen",
+                normalOption: "Normal",
+                portraitOption: "Retrato",
+                sketchOption: "Boceto",
+                generateButton: "Generar Mapa de Profundidad (10 Créditos)",
+                historyTitle: "Historial de Procesos",
+                noHistory: "Aún no hay historial de procesos",
+                previewTitle: "Vista Previa",
+                downloadSourceButton: "Descargar Textura",
+                downloadDepthButton: "Descargar Mapa de Profundidad",
+                sourceImageLabel: "Imagen de Origen",
+                depthImageLabel: "Mapa de Profundidad",
+                noSourceText: "No se ha cargado ninguna imagen",
+                noDepthText: "Aún no generado",
+                statusReady: "Listo",
+                statusUploading: "Subiendo imagen...",
+                statusRequesting: "Enviando solicitud de generación de mapa de profundidad...",
+                statusProcessing: "Generando mapa de profundidad, por favor espere...",
+                statusQueued: "Esperando en cola: Posición {position}",
+                statusComplete: "Mapa de profundidad generado con éxito",
+                statusFailed: "Falló la generación del mapa de profundidad",
+                footer: "Alpress IDEA Rainbo pro 3d - Todos los derechos reservados 2025.",
+                saveHelpTitle: "Información de Guardado de Archivos",
+                saveHelpText: "Los archivos generados se etiquetarán con fecha y hora y se guardarán en su carpeta de descargas.",
+                toastApiRequired: "Se requiere clave API",
+                toastConnected: "Conexión API exitosa",
+                toastConnectionFailed: "Falló la conexión API: {message}",
+                toastCreditsError: "No se pudo obtener información de crédito: {message}",
+                toastHistoryError: "No se pudo obtener el historial de procesos: {message}",
+                toastImageUploaded: "Imagen cargada con éxito",
+                toastRequirementsError: "Se requiere conexión API e imagen",
+                toastNotEnoughCredits: "No hay suficientes créditos (se requieren 10 créditos)",
+                toastUploadError: "Error al cargar imagen: {message}",
+                toastDrawError: "Error en la solicitud de generación: {message}",
+                toastProcessError: "Error de procesamiento: {message}",
+                toastStatusError: "Error de verificación de estado: {message}",
+                toastDownloadError: "Error de descarga: {message}",
+                toastDownloadSuccess: "Archivo descargado exitosamente: {filename}"
+            }
+        };
+        
+        // DOM Elements
+        const homeButton = document.getElementById('homeButton');
+        const apiKeyInput = document.getElementById('apiKey');
+        const connectButton = document.getElementById('connectButton');
+        const creditAmount = document.getElementById('creditAmount');
+        const refreshCreditsButton = document.getElementById('refreshCreditsButton');
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadText = document.getElementById('uploadText');
+        const fileInput = document.getElementById('fileInput');
+        const imageTypeSelect = document.getElementById('imageType');
+        const generateButton = document.getElementById('generateButton');
+        const downloadSourceButton = document.getElementById('downloadSourceButton');
+        const downloadDepthButton = document.getElementById('downloadDepthButton');
+        const sourceImageContainer = document.getElementById('sourceImageContainer');
+        const depthImageContainer = document.getElementById('depthImageContainer');
+        const noSourceText = document.getElementById('noSourceText');
+        const noDepthText = document.getElementById('noDepthText');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        const historyContainer = document.getElementById('historyContainer');
+        const toast = document.getElementById('toast');
+        const username = document.getElementById('username');
+        const datetime = document.getElementById('datetime');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const saveHelpTitle = document.getElementById('saveHelpTitle');
+        const saveHelpText = document.getElementById('saveHelpText');
+        
+        // Generate formatted timestamp for filenames
+        function getFormattedTimestamp() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            return `${year}${month}${day}_${hours}${minutes}${seconds}`;
+        }
+        
+        // Apply current language
+        function applyLanguage(lang) {
+            currentLanguage = lang;
+            const texts = translations[lang];
+            
+            // Update all text elements
+            document.getElementById('homeButton').textContent = texts.homeButton;
+            document.getElementById('appTitle').textContent = texts.appTitle;
+            document.getElementById('apiSettingsTitle').textContent = texts.apiSettingsTitle;
+            document.getElementById('apiKeyLabel').textContent = texts.apiKeyLabel;
+            apiKeyInput.placeholder = texts.apiKeyPlaceholder;
+            
+            if (!isConnected) {
+                connectButton.textContent = texts.connectButton;
+            } else {
+                connectButton.textContent = texts.connectButtonConnected;
+            }
+            
+            document.getElementById('creditInfoTitle').textContent = texts.creditInfoTitle;
+            document.getElementById('creditsLabel').textContent = texts.creditsLabel;
+            document.getElementById('refreshCreditsButton').textContent = texts.refreshCreditsButton;
+            document.getElementById('uploadImageTitle').textContent = texts.uploadImageTitle;
+            document.getElementById('uploadText').textContent = texts.uploadText;
+            document.getElementById('imageTypeLabel').textContent = texts.imageTypeLabel;
+            document.getElementById('normalOption').textContent = texts.normalOption;
+            document.getElementById('portraitOption').textContent = texts.portraitOption;
+            document.getElementById('sketchOption').textContent = texts.sketchOption;
+            
+            document.getElementById('generateButton').textContent = texts.generateButton;
+            document.getElementById('historyTitle').textContent = texts.historyTitle;
+            document.getElementById('previewTitle').textContent = texts.previewTitle;
+            document.getElementById('downloadSourceButton').textContent = texts.downloadSourceButton;
+            document.getElementById('downloadDepthButton').textContent = texts.downloadDepthButton;
+            document.getElementById('sourceImageLabel').textContent = texts.sourceImageLabel;
+            document.getElementById('depthImageLabel').textContent = texts.depthImageLabel;
+            document.getElementById('noSourceText').textContent = texts.noSourceText;
+            document.getElementById('noDepthText').textContent = texts.noDepthText;
+            
+            // Help box text
+            saveHelpTitle.textContent = texts.saveHelpTitle;
+            saveHelpText.textContent = texts.saveHelpText;
+            
+            // Only update status if it's in the ready state
+            if (statusText.textContent === translations.tr.statusReady || 
+                statusText.textContent === translations.en.statusReady || 
+                statusText.textContent === translations.es.statusReady) {
+                statusText.textContent = texts.statusReady;
+            }
+            
+            document.getElementById('footer').textContent = texts.footer;
+            
+            // Update language buttons
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Save preference
+            localStorage.setItem('depthMapGeneratorLang', lang);
+        }
+        
+        // Language selector event listeners
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyLanguage(btn.dataset.lang);
+            });
+        });
+        
+        // Load saved language preference
+        const savedLang = localStorage.getItem('depthMapGeneratorLang');
+        if (savedLang && translations[savedLang]) {
+            applyLanguage(savedLang);
+        } else {
+            applyLanguage('tr'); // Default language
+        }
+        
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const year = now.getUTCFullYear();
+            const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(now.getUTCDate()).padStart(2, '0');
+            const hours = String(now.getUTCHours()).padStart(2, '0');
+            const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+            
+            const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            datetime.textContent = formattedDateTime;
+        }
+        
+        // Update initially and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        
+        // Event Listeners
+        homeButton.addEventListener('click', () => window.location.href = 'index.html');
+        connectButton.addEventListener('click', connectAPI);
+        refreshCreditsButton.addEventListener('click', getCredits);
+        uploadArea.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        generateButton.addEventListener('click', generateDepthMap);
+        downloadSourceButton.addEventListener('click', downloadSourceImage);
+        downloadDepthButton.addEventListener('click', downloadDepthMap);
+        
+        // Setup drag and drop
+        setupDragAndDrop();
+        
+        // Load API key from local storage if available
+        window.addEventListener('load', () => {
+            const savedApiKey = localStorage.getItem('ideaRainboProApiKey');
+            if (savedApiKey) {
+                apiKeyInput.value = savedApiKey;
+                connectAPI();
+            }
+        });
+        
+        // Connect to API
+        function connectAPI() {
+            apiKey = apiKeyInput.value.trim();
+            
+            if (!apiKey) {
+                showToast(translations[currentLanguage].toastApiRequired, 'error');
+                return;
+            }
+            
+            // Show loading state
+            connectButton.innerHTML = '<div class="loading-spinner"></div>';
+            connectButton.disabled = true;
+            
+            // Test connection by fetching credits
+            getCredits()
+                .then(data => {
+                    if (data && data.code === 0) {
+                        isConnected = true;
+                        currentCredits = data.data.point;
+                        
+                        // Save API key to local storage
+                        localStorage.setItem('ideaRainboProApiKey', apiKey);
+                        
+                        // Update UI
+                        creditAmount.textContent = currentCredits;
+                        showToast(translations[currentLanguage].toastConnected, 'success');
+                        connectButton.textContent = translations[currentLanguage].connectButtonConnected;
+                        
+                        // Enable controls
+                        refreshCreditsButton.disabled = false;
+                        
+                        // Load history
+                        loadHistory();
+                    } else {
+                        const errorMsg = data ? data.msg : 'Unknown error';
+                        showToast(translations[currentLanguage].toastConnectionFailed.replace('{message}', errorMsg), 'error');
+                        connectButton.textContent = translations[currentLanguage].connectButton;
+                        connectButton.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    showToast(translations[currentLanguage].toastConnectionFailed.replace('{message}', error.message), 'error');
+                    connectButton.textContent = translations[currentLanguage].connectButton;
+                    connectButton.disabled = false;
+                });
+        }
+        
+        // Get Credits
+        async function getCredits() {
+            try {
+                const response = await fetch('https://api.sculptok.com/api-open/point/info', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.code === 0) {
+                    currentCredits = data.data.point;
+                    creditAmount.textContent = currentCredits;
+                    
+                    // Enable generate button if image is loaded and enough credits
+                    if (sourceImage && currentCredits >= 10) {
+                        generateButton.disabled = false;
+                    } else if (currentCredits < 10) {
+                        generateButton.disabled = true;
+                    }
+                } else {
+                    showToast(translations[currentLanguage].toastCreditsError.replace('{message}', data.msg), 'error');
+                }
+                
+                return data;
+            } catch (error) {
+                showToast(translations[currentLanguage].toastCreditsError.replace('{message}', error.message), 'error');
+                return null;
+            }
+        }
+        
+        // Load History
+        async function loadHistory() {
+            if (!isConnected) return;
+            
+            try {
+                const response = await fetch(`https://api.sculptok.com/api-open/image/page?page=${historyPage}&limit=${historyLimit}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.code === 0) {
+                    // Clear history container
+                    historyContainer.innerHTML = '';
+                    
+                    // Check if there are any history items
+                    if (data.data.total === 0) {
+                        historyContainer.innerHTML = `<div style="color: #666; text-align: center; padding: 20px;">${translations[currentLanguage].noHistory}</div>`;
+                        return;
+                    }
+                    
+                    // Add history items
+                    data.data.list.forEach(item => {
+                        const historyItem = document.createElement('div');
+                        historyItem.className = 'history-item';
+                        
+                        const date = new Date(item.createDate);
+                        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+                        
+                        historyItem.innerHTML = `
+                            <img src="${item.imgUrl}" alt="Depth Map" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 3px;">
+                            <div class="history-date">${formattedDate}</div>
+                        `;
+                        
+                        historyItem.addEventListener('click', () => {
+                            depthMapUrl = item.imgUrl;
+                            displayDepthMap(depthMapUrl);
+                            downloadDepthButton.disabled = false;
+                        });
+                        
+                        historyContainer.appendChild(historyItem);
+                    });
+                } else {
+                    showToast(translations[currentLanguage].toastHistoryError.replace('{message}', data.msg), 'error');
+                }
+            } catch (error) {
+                showToast(translations[currentLanguage].toastHistoryError.replace('{message}', error.message), 'error');
+            }
+        }
+        
+        // Handle File Select
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                readImageFile(file);
+            }
+        }
+        
+        // Setup Drag and Drop
+        function setupDragAndDrop() {
+            uploadArea.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.style.backgroundColor = 'rgba(33, 150, 243, 0.2)';
+                uploadArea.style.borderColor = '#2196F3';
+            });
+            
+            uploadArea.addEventListener('dragleave', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                uploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                uploadArea.style.borderColor = '#333';
+            });
+            
+            uploadArea.addEventListener('drop', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                uploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                uploadArea.style.borderColor = '#333';
+                
+                const file = event.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    readImageFile(file);
+                }
+            });
+        }
+        
+        // Read Image File
+        function readImageFile(file) {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                sourceImage = file;
+                
+                // Display the image
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                // Add load event to handle image sizing
+                img.onload = () => {
+                    // Adjust container height based on image aspect ratio if needed
+                    // This ensures the container expands properly for tall images
+                    if (img.height > img.width) {
+                        sourceImageContainer.style.minHeight = '400px';
+                    }
+                };
+                
+                sourceImageContainer.innerHTML = '';
+                sourceImageContainer.appendChild(img);
+                
+                // Update UI
+                downloadSourceButton.disabled = false;
+                if (isConnected && currentCredits >= 10) {
+                    generateButton.disabled = false;
+                }
+                
+                showToast(translations[currentLanguage].toastImageUploaded, 'success');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Generate Depth Map
+        async function generateDepthMap() {
+            if (!isConnected || !sourceImage) {
+                showToast(translations[currentLanguage].toastRequirementsError, 'error');
+                return;
+            }
+            
+            if (currentCredits < 10) {
+                showToast(translations[currentLanguage].toastNotEnoughCredits, 'error');
+                return;
+            }
+            
+            try {
+                // Update status
+                updateStatus('processing', translations[currentLanguage].statusUploading);
+                generateButton.disabled = true;
+                
+                // Step 1: Upload image
+                const formData = new FormData();
+                formData.append('file', sourceImage);
+                
+                const uploadResponse = await fetch('https://api.sculptok.com/api-open/image/upload', {
+                    method: 'POST',
+                    headers: {
+                        'apikey': apiKey
+                    },
+                    body: formData
+                });
+                
+                const uploadData = await uploadResponse.json();
+                
+                if (uploadData.code !== 0) {
+                    updateStatus('error', translations[currentLanguage].toastUploadError.replace('{message}', uploadData.msg));
+                    generateButton.disabled = false;
+                    return;
+                }
+                
+                sourceImageUrl = uploadData.data.src;
+                
+                // Step 2: Submit draw request
+                updateStatus('processing', translations[currentLanguage].statusRequesting);
+                
+                const drawResponse = await fetch('https://api.sculptok.com/api-open/draw/prompt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    },
+                    body: JSON.stringify({
+                        imageUrl: sourceImageUrl,
+                        style: imageTypeSelect.value
+                    })
+                });
+                
+                const drawData = await drawResponse.json();
+                
+                if (drawData.code !== 0) {
+                    updateStatus('error', translations[currentLanguage].toastDrawError.replace('{message}', drawData.msg));
+                    generateButton.disabled = false;
+                    return;
+                }
+                
+                promptId = drawData.data.promptId;
+                
+                // Step 3: Poll for results
+                updateStatus('processing', translations[currentLanguage].statusProcessing);
+                
+                // Update credits after draw request
+                getCredits();
+                
+                // Start polling
+                clearInterval(processingInterval);
+                processingInterval = setInterval(checkProcessingStatus, 3000);
+                
+            } catch (error) {
+                updateStatus('error', translations[currentLanguage].toastProcessError.replace('{message}', error.message));
+                generateButton.disabled = false;
+            }
+        }
+        
+        // Check Processing Status
+        async function checkProcessingStatus() {
+            try {
+                const response = await fetch(`https://api.sculptok.com/api-open/draw/prompt?uuid=${promptId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.code !== 0) {
+                    clearInterval(processingInterval);
+                    updateStatus('error', translations[currentLanguage].toastStatusError.replace('{message}', data.msg));
+                    generateButton.disabled = false;
+                    return;
+                }
+                
+                const status = data.data.status;
+                
+                // If there's a position in queue, show it
+                if (data.data.position) {
+                    updateStatus('processing', translations[currentLanguage].statusQueued.replace('{position}', data.data.position));
+                    return;
+                }
+                
+                // If processing is complete
+                if (status === 2 && data.data.imgRecords && data.data.imgRecords.length > 0) {
+                    clearInterval(processingInterval);
+                    
+                    // Get the last image which is the final depth map
+                    depthMapUrl = data.data.imgRecords[data.data.imgRecords.length - 1];
+                    
+                    // Display the depth map
+                    displayDepthMap(depthMapUrl);
+                    
+                    // Update status
+                    updateStatus('complete', translations[currentLanguage].statusComplete);
+                    
+                    // Enable download button
+                    downloadDepthButton.disabled = false;
+                    
+                    // Re-enable generate button
+                    generateButton.disabled = false;
+                    
+                    // Refresh history
+                    setTimeout(loadHistory, 1000);
+                } else if (status === 3) {
+                    // Failed
+                    clearInterval(processingInterval);
+                    updateStatus('error', translations[currentLanguage].statusFailed);
+                    generateButton.disabled = false;
+                } else {
+                    // Still processing
+                    updateStatus('processing', translations[currentLanguage].statusProcessing);
+                }
+            } catch (error) {
+                clearInterval(processingInterval);
+                updateStatus('error', translations[currentLanguage].toastStatusError.replace('{message}', error.message));
+                generateButton.disabled = false;
+            }
+        }
+        
+        // Display Depth Map
+        function displayDepthMap(url) {
+            const img = document.createElement('img');
+            img.src = url;
+            
+            // Add load event to handle image sizing
+            img.onload = () => {
+                // Adjust container height based on image aspect ratio if needed
+                if (img.height > img.width) {
+                    depthImageContainer.style.minHeight = '400px';
+                }
+            };
+            
+            depthImageContainer.innerHTML = '';
+            depthImageContainer.appendChild(img);
+        }
+        
+        // Download Source Image
+        function downloadSourceImage() {
+            if (!sourceImage) return;
+            
+            // Generate timestamp for unique filename
+            const timestamp = getFormattedTimestamp();
+            const filename = `texture_${timestamp}.png`;
+            
+            // Create object URL from the source image file
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(sourceImage);
+            link.download = filename;
+            link.click();
+            
+            // Clean up
+            setTimeout(() => URL.revokeObjectURL(link.href), 100);
+            
+            // Show success toast
+            showToast(translations[currentLanguage].toastDownloadSuccess.replace('{filename}', filename), 'success');
+        }
+        
+        // Download Depth Map - Fixed version
+        function downloadDepthMap() {
+            if (!depthMapUrl) return;
+            
+            // Generate timestamp for unique filename
+            const timestamp = getFormattedTimestamp();
+            const filename = `depth_${timestamp}.png`;
+            
+            // Create a new image with CORS proxy if needed
+            const img = new Image();
+            img.crossOrigin = "anonymous";  // This is important for CORS
+            
+            img.onload = function() {
+                // Create a canvas to draw the image
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                // Draw the image on canvas
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                
+                // Convert to blob and download
+                canvas.toBlob(function(blob) {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = filename;
+                    link.click();
+                    
+                    // Clean up
+                    setTimeout(() => URL.revokeObjectURL(link.href), 100);
+                    
+                    // Show success toast
+                    showToast(translations[currentLanguage].toastDownloadSuccess.replace('{filename}', filename), 'success');
+                }, 'image/png');
+            };
+            
+            img.onerror = function() {
+                // If direct loading fails, try a backup method
+                // This is a fallback method that might work for some URLs
+                fetch(depthMapUrl, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache'
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = filename;
+                    link.click();
+                    
+                    // Clean up by revoking the blob URL
+                    setTimeout(() => URL.revokeObjectURL(url), 100);
+                    
+                    // Show success toast
+                    showToast(translations[currentLanguage].toastDownloadSuccess.replace('{filename}', filename), 'success');
+                })
+                .catch(error => {
+                    showToast(translations[currentLanguage].toastDownloadError.replace('{message}', error.message), 'error');
+                    
+                    // Last resort: open the image in a new tab for manual saving
+                    window.open(depthMapUrl, '_blank');
+                });
+            };
+            
+            // Set the src to start loading
+            img.src = depthMapUrl;
+        }
+        
+        // Update Status
+        function updateStatus(type, message) {
+            statusText.textContent = message;
+            
+            // Remove all classes
+            statusIndicator.classList.remove('status-idle', 'status-processing', 'status-complete', 'status-error');
+            
+            // Add specific class
+            statusIndicator.classList.add('status-' + type);
+        }
+        
+        // Show Toast
+        function showToast(message, type = 'info') {
+            toast.textContent = message;
+            toast.className = type;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
